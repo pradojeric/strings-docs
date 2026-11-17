@@ -26,3 +26,7 @@ Replace the unfinished playable prototype with a static website for the developm
 - [x] Build the guide and integrate generated artwork.
 - [ ] Check source-document coverage, behavior, accessibility, and production build.
 - [ ] Review changes and publish to the authorized GitHub repository and Pages, if account access permits.
+
+## Progress
+
+The guide and artwork are implemented. Four focused tests and the production build pass; desktop browser search, chapter navigation, direct links, and the revised table layout were checked. Mobile layout still needs browser verification. Source was uploaded to the private GitHub repository, but Pages is not yet enabled: the in-app browser is signed out and the connected GitHub tool does not provide Pages settings. The local repository is initialized but has no commit or remote tracking branch; the remote files were written through the GitHub connector.
