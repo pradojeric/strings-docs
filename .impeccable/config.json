@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-17T09:34:01.402Z",
+        "reason": "Agent: external stylesheet sets hero headings to 65-140px and document prose to 14px; desktop and mobile previews show distinct hierarchy."
+      }
+    ]
+  }
+}
