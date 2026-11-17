@@ -9,6 +9,7 @@ const nav=get<HTMLElement>('navigation'), documentRoot=get<HTMLElement>('documen
 const search=get<HTMLInputElement>('search'), clear=get<HTMLButtonElement>('clear-search');
 const result=get<HTMLElement>('search-meta'), noResults=get<HTMLElement>('no-results');
 const sidebar=get<HTMLElement>('sidebar'), menu=get<HTMLButtonElement>('menu-toggle');
+const menuClose=get<HTMLButtonElement>('menu-close'), mobile=window.matchMedia('(max-width: 760px)');
 get<HTMLAnchorElement>('source-link').href=sourceUrl;
 get('preface').innerHTML=markdownToHtml(preface);
 const groups=[{label:'START HERE',min:1,max:2},{label:'THE EXPERIENCE',min:3,max:6},{label:'GAME SYSTEMS',min:7,max:10},{label:'THE WORLD',min:11,max:14},{label:'PRODUCTION',min:15,max:20},{label:'REFERENCE',min:21,max:21}];
@@ -39,8 +40,12 @@ function applySearch(){
 search.addEventListener('input',applySearch);clear.addEventListener('click',()=>{search.value='';applySearch();search.focus();});
 search.addEventListener('keydown',event=>{if(event.key==='Escape'&&search.value){search.value='';applySearch();}else if(event.key==='Enter'){const first=documentRoot.querySelector<HTMLElement>('.doc-section:not([hidden])');if(first)first.scrollIntoView({behavior:'smooth'});}});
 window.addEventListener('keydown',event=>{const target=event.target as HTMLElement;if(event.key==='/'&&!['INPUT','TEXTAREA'].includes(target.tagName)&&!target.isContentEditable){event.preventDefault();search.focus();search.scrollIntoView({block:'center',behavior:'smooth'});}});
-menu.addEventListener('click',()=>{const open=sidebar.classList.toggle('is-open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close navigation':'Open navigation');});
-nav.addEventListener('click',event=>{if((event.target as HTMLElement).closest('a')){sidebar.classList.remove('is-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');}});
+function setMenu(open:boolean,restoreFocus=false){sidebar.classList.toggle('is-open',open);sidebar.inert=mobile.matches&&!open;menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close navigation':'Open navigation');if(open)menuClose.focus();else if(restoreFocus)menu.focus();}
+menu.addEventListener('click',()=>setMenu(!sidebar.classList.contains('is-open')));
+menuClose.addEventListener('click',()=>setMenu(false,true));
+window.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobile.matches&&sidebar.classList.contains('is-open'))setMenu(false,true);});
+mobile.addEventListener('change',()=>setMenu(false));setMenu(false);
+nav.addEventListener('click',event=>{if((event.target as HTMLElement).closest('a'))setMenu(false);});
 window.addEventListener('hashchange',()=>{const id=decodeURIComponent(location.hash.slice(1));if(id&&document.getElementById(id)?.hidden){search.value='';applySearch();document.getElementById(id)?.scrollIntoView();}});
 const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){links.forEach(link=>{const active=link.dataset.section===entry.target.id;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}},{rootMargin:'-18% 0px -70% 0px'});
 documentRoot.querySelectorAll('.doc-section').forEach(section=>observer.observe(section));
