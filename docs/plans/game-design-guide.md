@@ -24,9 +24,9 @@ Replace the unfinished playable prototype with a static website for the developm
 - [x] Clarify audience, coverage, presentation, and replacement of the prototype.
 - [x] Obtain review approval for this revised plan.
 - [x] Build the guide and integrate generated artwork.
-- [ ] Check source-document coverage, behavior, accessibility, and production build.
-- [ ] Review changes and publish to the authorized GitHub repository and Pages, if account access permits.
+- [x] Check source-document coverage, behavior, accessibility, and production build.
+- [x] Review changes and publish to the authorized GitHub repository and Pages, if account access permits.
 
 ## Progress
 
-The guide and artwork are implemented. Four focused tests and the production build pass; desktop browser search, chapter navigation, direct links, and the revised table layout were checked. A 390-pixel browser preview confirmed the mobile overview and menu open, close, Escape, and focus restoration; broader device testing remains open. Source was uploaded to GitHub, but Pages deployment returned a 404 asking for Pages to be enabled: the in-app browser is signed out and the connected GitHub tool does not provide Pages settings. The local repository is initialized but has no commit or remote tracking branch; the remote files were written through the GitHub connector.
+The guide and artwork are implemented. Four focused tests and the production build pass; desktop browser search, chapter navigation, direct links, and the revised table layout were checked. A 390-pixel browser preview confirmed the mobile overview and menu open, close, Escape, and focus restoration; broader device testing remains open. GitHub Pages deployment succeeded after the user enabled Pages, and the published guide and search were checked. The local repository is initialized but has no commit or remote tracking branch; the remote files were written through the GitHub connector.
